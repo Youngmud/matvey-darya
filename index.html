@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Приглашение на свадьбу Матвея и Дарьи">
+  <title>Матвей и Дарья — приглашение</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%236B2D3C'/%3E%3Ctext x='16' y='21' text-anchor='middle' fill='%23F5EDE4' font-size='13' font-family='Georgia,serif'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Great+Vibes&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- Без JavaScript лента остаётся читаемой: скрытие до появления не применяется -->
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+  <!-- Тонкая линия прогресса вдоль всей ленты -->
+  <div class="progress" aria-hidden="true"><span class="progress__bar" id="progress"></span></div>
+
+  <div class="scroll">
+    <!-- 1. Обложка -->
+    <header class="hero" id="top">
+      <p class="eyebrow appear" style="--d: 0ms">Приглашение</p>
+      <p class="monogram appear" style="--d: 70ms" aria-hidden="true">М&nbsp;&amp;&nbsp;Д</p>
+      <h1 class="names appear" style="--d: 140ms">
+        <span>Матвей</span>
+        <span class="names__amp">&amp;</span>
+        <span>Дарья</span>
+      </h1>
+      <!-- Дату дублирует константа WEDDING_ISO в script.js — поменяйте оба места -->
+      <p class="hero__date appear" style="--d: 240ms">8 июля 2027</p>
+      <p class="lead lead--center appear" style="--d: 320ms">Приглашаем вас разделить с нами день, который хочется запомнить вместе.</p>
+      <a class="scroll-cue appear" style="--d: 420ms" href="#countdown">Листайте ленту</a>
+    </header>
+
+    <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
+
+    <!-- 2. Обратный отсчёт -->
+    <section class="section wash" id="countdown" aria-labelledby="countdown-title">
+      <p class="eyebrow reveal">До церемонии</p>
+      <h2 class="reveal" id="countdown-title">Считаем дни</h2>
+      <p class="lead lead--center reveal">Каждый из них приближает нас к одной общей дате.</p>
+      <div class="countdown reveal" id="countdown-grid" aria-live="polite">
+        <article class="count">
+          <strong id="cd-days">—</strong>
+          <span id="cd-days-label">дней</span>
+        </article>
+        <article class="count">
+          <strong id="cd-hours">—</strong>
+          <span id="cd-hours-label">часов</span>
+        </article>
+        <article class="count">
+          <strong id="cd-minutes">—</strong>
+          <span id="cd-minutes-label">минут</span>
+        </article>
+        <article class="count">
+          <strong id="cd-seconds">—</strong>
+          <span id="cd-seconds-label">секунд</span>
+        </article>
+      </div>
+      <p class="countdown__note reveal" id="countdown-note" hidden>Этот день уже наступил. Мы рады, что вы с нами.</p>
+    </section>
+
+    <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
+
+    <!-- 3. Детали -->
+    <section class="section" id="details" aria-labelledby="details-title">
+      <p class="eyebrow reveal">Подробности</p>
+      <h2 class="reveal" id="details-title">Детали дня</h2>
+      <p class="lead lead--center reveal">Всё, что нужно знать заранее. Место и час мы подтвердим ближе к дате.</p>
+      <ul class="facts">
+        <li class="fact reveal">
+          <span class="fact__label">Дата</span>
+          <strong class="fact__value">8 июля 2027</strong>
+          <p>Четверг. Просим заложить время на дорогу.</p>
+        </li>
+        <li class="fact reveal">
+          <span class="fact__label">Время</span>
+          <strong class="fact__value">15:00</strong>
+          <p>Сбор гостей — за полчаса до церемонии.</p>
+        </li>
+        <li class="fact reveal">
+          <span class="fact__label">Место</span>
+          <strong class="fact__value">Площадка уточняется</strong>
+          <p>Город и адрес пришлём отдельным сообщением.</p>
+        </li>
+      </ul>
+    </section>
+
+    <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
+
+    <!-- 4. Программа -->
+    <section class="section wash wash--sage" id="program" aria-labelledby="program-title">
+      <p class="eyebrow reveal">Как пройдёт день</p>
+      <h2 class="reveal" id="program-title">Программа</h2>
+      <p class="lead lead--center reveal">Неспешный вечер: от тихой церемонии к общему столу.</p>
+      <ol class="timeline">
+        <li class="reveal">
+          <time datetime="15:00">15:00</time>
+          <div>
+            <h3>Сбор гостей</h3>
+            <p>Встречаем вас, знакомим с местом и даём немного времени выдохнуть перед началом.</p>
+          </div>
+        </li>
+        <li class="reveal">
+          <time datetime="15:30">15:30</time>
+          <div>
+            <h3>Церемония</h3>
+            <p>Короткие слова, обещания и минута, ради которой собрались все мы.</p>
+          </div>
+        </li>
+        <li class="reveal">
+          <time datetime="17:00">17:00</time>
+          <div>
+            <h3>Праздничный ужин</h3>
+            <p>Общий стол, тосты и разговоры, которые не хочется прерывать.</p>
+          </div>
+        </li>
+        <li class="reveal">
+          <time datetime="19:30">19:30</time>
+          <div>
+            <h3>Танцы</h3>
+            <p>Первый танец и дальше — музыка для тех, кто готов остаться на паркете.</p>
+          </div>
+        </li>
+        <li class="reveal">
+          <time datetime="21:30">21:30</time>
+          <div>
+            <h3>Торт и финал</h3>
+            <p>Сладкое, ещё один тост и спокойное завершение вечера.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
+
+    <!-- 5. История -->
+    <section class="section" id="story" aria-labelledby="story-title">
+      <p class="eyebrow reveal">О нас</p>
+      <h2 class="reveal" id="story-title">Коротко о том, как всё сложилось</h2>
+
+      <article class="story">
+        <p class="lead reveal">Случайный разговор, который не захотелось заканчивать.</p>
+        <p class="prose reveal">Мы встретились в обычный будний вечер и остались в этом разговоре гораздо дольше, чем планировали. Так началась история, которую теперь хочется рассказать вслух.</p>
+      </article>
+
+      <article class="story">
+        <p class="lead reveal">Дальше было тихо и очень ясно: рядом спокойнее.</p>
+        <p class="prose reveal">Общие дороги, долгие завтраки и решения, которые больше не хотелось принимать поодиночке. Без спешки, но с ощущением, что всё уже на своём месте.</p>
+      </article>
+
+      <article class="story">
+        <p class="lead reveal">Теперь мы зовём в этот день тех, с кем тепло.</p>
+        <p class="prose reveal">Нам важно, чтобы рядом были вы. Приходите разделить ужин, музыку и несколько часов, которые мы запомним вместе.</p>
+      </article>
+    </section>
+
+    <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
+
+    <!-- 6. Ответ на приглашение -->
+    <section class="section wash" id="rsvp" aria-labelledby="rsvp-title">
+      <p class="eyebrow reveal">Ответ</p>
+      <h2 class="reveal" id="rsvp-title">Будете с нами?</h2>
+      <p class="lead lead--center reveal">Напишите, пожалуйста, как вас встречать. Это займёт минуту.</p>
+
+      <form class="rsvp reveal" id="rsvp-form" novalidate>
+        <label class="field">
+          <span>Имя</span>
+          <input type="text" name="name" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
+        </label>
+        <label class="field">
+          <span>Количество гостей</span>
+          <input type="number" name="guests" min="1" max="8" value="1" required inputmode="numeric">
+        </label>
+        <label class="field">
+          <span>Комментарий</span>
+          <textarea name="note" rows="3" maxlength="400" placeholder="Пожелания, аллергии или кто придёт с вами"></textarea>
+        </label>
+        <p class="form-error" id="form-error" hidden></p>
+        <button class="button" type="submit">Подтвердить присутствие</button>
+      </form>
+
+      <div class="thanks" id="thanks" hidden tabindex="-1">
+        <p class="lead lead--center">Спасибо. Мы будем рады видеть вас.</p>
+        <p class="prose prose--center" id="thanks-text"></p>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
+
+    <!-- 7. Финал -->
+    <footer class="section finale" id="finale">
+      <p class="eyebrow reveal">До встречи</p>
+      <h2 class="reveal">Ждём вас</h2>
+      <p class="lead lead--center reveal">Пусть этот день будет тихим, тёплым и по-настоящему нашим общим.</p>
+      <p class="prose prose--center reveal">Если планы изменятся или появятся вопросы — напишите. Мы ответим лично.</p>
+      <address class="contacts reveal">
+        <a href="tel:+70000000000">+7 (000) 000-00-00</a>
+        <a href="mailto:hello@example.com">hello@example.com</a>
+      </address>
+      <p class="finale__sign reveal">Матвей <span>&amp;</span> Дарья</p>
+      <a class="to-top" href="#top">К началу ленты</a>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
