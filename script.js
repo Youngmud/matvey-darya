@@ -1,65 +1,65 @@
-/* Поведение ленты: появление блоков, отсчёт, ответ на приглашение.
-   Дату свадьбы меняйте здесь и в текстах index.html. */
+/* Конверт, отсчёт и анкета. Дата церемонии — 8 июля 2027, 17:00. */
 (function () {
   "use strict";
 
-  var WEDDING_ISO = "2027-07-08T15:00:00";
+  var WEDDING_ISO = "2027-07-08T17:00:00";
+  /* Адрес приёма анкет. Пустая строка — ответ остаётся только на странице. */
+  var RSVP_URL = "";
 
-  initReveal();
-  initProgress();
+  var gate = document.getElementById("gate");
+  var invitation = document.getElementById("invitation");
+
+  if (gate && invitation) {
+    gate.addEventListener("click", openLetter);
+  }
+
+  function openLetter() {
+    if (gate.classList.contains("is-opening")) return;
+    gate.classList.add("is-opening");
+    window.setTimeout(function () {
+      invitation.hidden = false;
+      gate.hidden = true;
+      document.documentElement.classList.add("is-open");
+      initReveal();
+      initProgress();
+      window.scrollTo(0, 0);
+    }, 900);
+  }
+
   initCountdown();
   initForm();
 
-  /* Быстрый fade-in, когда блок входит в кадр */
   function initReveal() {
-    var nodes = document.querySelectorAll(".reveal");
+    var nodes = invitation.querySelectorAll(".reveal");
     if (!("IntersectionObserver" in window)) {
-      nodes.forEach(function (node) {
-        node.classList.add("is-visible");
-      });
+      nodes.forEach(function (node) { node.classList.add("is-visible"); });
       return;
     }
-
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
-    );
-
-    nodes.forEach(function (node) {
-      observer.observe(node);
-    });
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    nodes.forEach(function (node) { observer.observe(node); });
   }
 
-  /* Линия сверху повторяет длину прокрученного свитка */
   function initProgress() {
     var bar = document.getElementById("progress");
     if (!bar) return;
-
     var ticking = false;
-
     function paint() {
       var scrollable = document.documentElement.scrollHeight - window.innerHeight;
       var ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
       bar.style.transform = "scaleX(" + Math.min(1, Math.max(0, ratio)) + ")";
       ticking = false;
     }
-
-    window.addEventListener(
-      "scroll",
-      function () {
-        if (ticking) return;
-        ticking = true;
-        window.requestAnimationFrame(paint);
-      },
-      { passive: true }
-    );
-
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(paint);
+    }, { passive: true });
     paint();
   }
 
@@ -80,18 +80,15 @@
         if (note) note.hidden = false;
         return;
       }
-
       var total = Math.floor(diff / 1000);
       var days = Math.floor(total / 86400);
       var hours = Math.floor((total % 86400) / 3600);
       var minutes = Math.floor((total % 3600) / 60);
       var seconds = total % 60;
-
       daysEl.textContent = String(days);
       hoursEl.textContent = pad(hours);
       minutesEl.textContent = pad(minutes);
       secondsEl.textContent = pad(seconds);
-
       setLabel("cd-days-label", days, "день", "дня", "дней");
       setLabel("cd-hours-label", hours, "час", "часа", "часов");
       setLabel("cd-minutes-label", minutes, "минута", "минуты", "минут");
@@ -102,9 +99,7 @@
     window.setInterval(tick, 1000);
   }
 
-  function pad(value) {
-    return value < 10 ? "0" + value : String(value);
-  }
+  function pad(value) { return value < 10 ? "0" + value : String(value); }
 
   function setLabel(id, value, one, few, many) {
     var el = document.getElementById(id);
@@ -120,43 +115,62 @@
     return many;
   }
 
-  /* Ответ остаётся на странице: сервера у статической ленты нет */
   function initForm() {
     var form = document.getElementById("rsvp-form");
     var error = document.getElementById("form-error");
     var thanks = document.getElementById("thanks");
-    var thanksText = document.getElementById("thanks-text");
-    if (!form || !thanks || !thanksText) return;
+    var companionWrap = document.getElementById("companion-field");
+    if (!form || !thanks) return;
+    var companion = form.elements.companion;
+
+    form.addEventListener("change", function (event) {
+      if (!event.target || event.target.name !== "pair") return;
+      var withPair = form.elements.pair.value === "yes";
+      companionWrap.hidden = !withPair;
+      companion.required = withPair;
+      if (!withPair) companion.value = "";
+    });
 
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       clearError();
-
       var data = new FormData(form);
       var name = String(data.get("name") || "").trim();
-      var guests = Number(data.get("guests"));
-      var note = String(data.get("note") || "").trim();
-      var nameInput = form.elements.name;
+      var attend = String(data.get("attend") || "");
+      var pair = String(data.get("pair") || "");
+      var companionName = String(data.get("companion") || "").trim();
 
-      if (!name) {
-        showError("Напишите, пожалуйста, как вас представить.", nameInput);
-        return;
-      }
+      if (!name) return showError("Напишите, пожалуйста, имя и фамилию.", form.elements.name);
+      if (attend !== "yes" && attend !== "no") return showError("Отметьте, будете ли вы с нами.", form.querySelector("[name=attend]"));
+      if (pair !== "yes" && pair !== "no") return showError("Отметьте, будете ли вы с парой.", form.querySelector("[name=pair]"));
+      if (pair === "yes" && !companionName) return showError("Напишите имя сопровождающего.", companion);
 
-      if (!Number.isInteger(guests) || guests < 1 || guests > 8) {
-        showError("Укажите число гостей от 1 до 8.", form.elements.guests);
-        return;
-      }
+      var payload = {
+        name: name,
+        attend: attend,
+        pair: pair,
+        companion: pair === "yes" ? companionName : ""
+      };
 
-      var guestWord = plural(guests, "гость", "гостя", "гостей");
-      var message = name + ", мы ждём вас. В ответе — " + guests + " " + guestWord + ".";
-      if (note) message += " Спасибо за комментарий.";
-
-      thanksText.textContent = message;
-      form.hidden = true;
-      thanks.hidden = false;
-      thanks.focus();
+      send(payload).then(function () {
+        form.hidden = true;
+        thanks.hidden = false;
+        thanks.focus();
+      }).catch(function () {
+        showError("Не удалось отправить ответ. Попробуйте ещё раз через минуту.");
+      });
     });
+
+    function send(payload) {
+      if (!RSVP_URL) return Promise.resolve();
+      return fetch(RSVP_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(function (response) {
+        if (!response.ok) throw new Error("rsvp");
+      });
+    }
 
     function showError(message, field) {
       if (!error) return;
