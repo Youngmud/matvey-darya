@@ -3,8 +3,8 @@
   "use strict";
 
   var WEDDING_ISO = "2027-07-08T17:00:00";
-  /* Адрес приёма анкет. Пустая строка — ответ остаётся только на странице. */
-  var RSVP_URL = "";
+  /* Адрес приёма анкет. Токен бота здесь не хранится. */
+  var RSVP_URL = "https://brylevs-rsvp.andrew-mudrov.workers.dev/rsvp";
 
   var gate = document.getElementById("gate");
   var invitation = document.getElementById("invitation");
