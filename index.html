@@ -3,205 +3,288 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Приглашение на свадьбу Матвея и Дарьи">
-  <title>Матвей и Дарья — приглашение</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%236B2D3C'/%3E%3Ctext x='16' y='21' text-anchor='middle' fill='%23F5EDE4' font-size='13' font-family='Georgia,serif'%3EM%3C/text%3E%3C/svg%3E">
+  <meta name="description" content="Пригласительное письмо на свадьбу Матвея и Дарьи, 8 июля 2027">
+  <meta name="theme-color" content="#3a2418">
+  <title>Матвей и Дарья — пригласительное письмо</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%233a2418'/%3E%3Ctext x='16' y='21' text-anchor='middle' fill='%23f3eadf' font-size='12' font-family='Georgia,serif'%3EM%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Great+Vibes&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600&family=Marck+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <!-- Без JavaScript лента остаётся читаемой: скрытие до появления не применяется -->
-  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+  <noscript><style>.gate{display:none!important}#invitation[hidden]{display:block!important}</style></noscript>
 </head>
 <body>
-  <!-- Тонкая линия прогресса вдоль всей ленты -->
   <div class="progress" aria-hidden="true"><span class="progress__bar" id="progress"></span></div>
 
-  <div class="scroll">
-    <!-- 1. Обложка -->
-    <header class="hero" id="top">
-      <p class="eyebrow appear" style="--d: 0ms">Приглашение</p>
-      <p class="monogram appear" style="--d: 70ms" aria-hidden="true">М&nbsp;&amp;&nbsp;Д</p>
-      <h1 class="names appear" style="--d: 140ms">
-        <span>Матвей</span>
-        <span class="names__amp">&amp;</span>
-        <span>Дарья</span>
-      </h1>
-      <!-- Дату дублирует константа WEDDING_ISO в script.js — поменяйте оба места -->
-      <p class="hero__date appear" style="--d: 240ms">8 июля 2027</p>
-      <p class="lead lead--center appear" style="--d: 320ms">Приглашаем вас разделить с нами день, который хочется запомнить вместе.</p>
-      <a class="scroll-cue appear" style="--d: 420ms" href="#countdown">Листайте ленту</a>
-    </header>
+  <!-- Первый экран: конверт. Письмо открывается по нажатию на весь экран -->
+  <button class="gate" id="gate" type="button">
+    <span class="env" aria-hidden="true">
+      <span class="env__letter"></span>
+      <span class="env__flap"></span>
+      <span class="env__pocket"></span>
+      <span class="env__seal">М&nbsp;&amp;&nbsp;Д</span>
+    </span>
+    <span class="gate__title">Пригласительное письмо, для самых дорогих и близких нам людей</span>
+    <span class="gate__hint">нажмите на экран, чтобы открыть</span>
+  </button>
 
-    <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
+  <div class="invitation" id="invitation" hidden>
+    <div class="scroll">
 
-    <!-- 2. Обратный отсчёт -->
-    <section class="section wash" id="countdown" aria-labelledby="countdown-title">
-      <p class="eyebrow reveal">До церемонии</p>
-      <h2 class="reveal" id="countdown-title">Считаем дни</h2>
-      <p class="lead lead--center reveal">Каждый из них приближает нас к одной общей дате.</p>
-      <div class="countdown reveal" id="countdown-grid" aria-live="polite">
-        <article class="count">
-          <strong id="cd-days">—</strong>
-          <span id="cd-days-label">дней</span>
-        </article>
-        <article class="count">
-          <strong id="cd-hours">—</strong>
-          <span id="cd-hours-label">часов</span>
-        </article>
-        <article class="count">
-          <strong id="cd-minutes">—</strong>
-          <span id="cd-minutes-label">минут</span>
-        </article>
-        <article class="count">
-          <strong id="cd-seconds">—</strong>
-          <span id="cd-seconds-label">секунд</span>
-        </article>
-      </div>
-      <p class="countdown__note reveal" id="countdown-note" hidden>Этот день уже наступил. Мы рады, что вы с нами.</p>
-    </section>
+      <!-- Обложка -->
+      <header class="cover" id="top">
+        <figure class="cover__photo">
+          <img src="images/couple.jpg" alt="Матвей и Дарья">
+        </figure>
+        <div class="cover__copy">
+          <p class="eyebrow">Наша история</p>
+          <h1 class="names">
+            <span>Матвей</span>
+            <span class="names__amp">&amp;</span>
+            <span>Дарья</span>
+          </h1>
+          <p class="cover__date">8 июля 2027</p>
+          <p class="whisper">Один день. Две истории, которые становятся одной.</p>
+        </div>
+      </header>
 
-    <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
+      <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
 
-    <!-- 3. Детали -->
-    <section class="section" id="details" aria-labelledby="details-title">
-      <p class="eyebrow reveal">Подробности</p>
-      <h2 class="reveal" id="details-title">Детали дня</h2>
-      <p class="lead lead--center reveal">Всё, что нужно знать заранее. Место и час мы подтвердим ближе к дате.</p>
-      <ul class="facts">
-        <li class="fact reveal">
-          <span class="fact__label">Дата</span>
-          <strong class="fact__value">8 июля 2027</strong>
-          <p>Четверг. Просим заложить время на дорогу.</p>
-        </li>
-        <li class="fact reveal">
-          <span class="fact__label">Время</span>
-          <strong class="fact__value">15:00</strong>
-          <p>Сбор гостей — за полчаса до церемонии.</p>
-        </li>
-        <li class="fact reveal">
-          <span class="fact__label">Место</span>
-          <strong class="fact__value">Площадка уточняется</strong>
-          <p>Город и адрес пришлём отдельным сообщением.</p>
-        </li>
-      </ul>
-    </section>
+      <!-- Обращение -->
+      <section class="section paper" id="letter" aria-labelledby="letter-title">
+        <h2 class="script-title" id="letter-title">Дорогие гости!</h2>
+        <div class="letter">
+          <p>В нашей жизни наступает особенный момент — день, когда две истории становятся одной, а впереди открывается новая глава под названием «Семья».</p>
+          <p>Мы хотим разделить этот важный день с людьми, которые дороги нашим сердцам.</p>
+          <p>Нам будет особенно ценно видеть вас рядом, разделить ваши улыбки, искренние эмоции и создать воспоминания, к которым захочется возвращаться снова и снова.</p>
+          <p class="letter__last">Будем счастливы провести этот день вместе с вами!</p>
+        </div>
+      </section>
 
-    <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
+      <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
 
-    <!-- 4. Программа -->
-    <section class="section wash wash--sage" id="program" aria-labelledby="program-title">
-      <p class="eyebrow reveal">Как пройдёт день</p>
-      <h2 class="reveal" id="program-title">Программа</h2>
-      <p class="lead lead--center reveal">Неспешный вечер: от тихой церемонии к общему столу.</p>
-      <ol class="timeline">
-        <li class="reveal">
-          <time datetime="15:00">15:00</time>
-          <div>
-            <h3>Сбор гостей</h3>
-            <p>Встречаем вас, знакомим с местом и даём немного времени выдохнуть перед началом.</p>
-          </div>
-        </li>
-        <li class="reveal">
-          <time datetime="15:30">15:30</time>
-          <div>
-            <h3>Церемония</h3>
-            <p>Короткие слова, обещания и минута, ради которой собрались все мы.</p>
-          </div>
-        </li>
-        <li class="reveal">
-          <time datetime="17:00">17:00</time>
-          <div>
-            <h3>Праздничный ужин</h3>
-            <p>Общий стол, тосты и разговоры, которые не хочется прерывать.</p>
-          </div>
-        </li>
-        <li class="reveal">
-          <time datetime="19:30">19:30</time>
-          <div>
-            <h3>Танцы</h3>
-            <p>Первый танец и дальше — музыка для тех, кто готов остаться на паркете.</p>
-          </div>
-        </li>
-        <li class="reveal">
-          <time datetime="21:30">21:30</time>
-          <div>
-            <h3>Торт и финал</h3>
-            <p>Сладкое, ещё один тост и спокойное завершение вечера.</p>
-          </div>
-        </li>
-      </ol>
-    </section>
+      <!-- Обратный отсчёт -->
+      <section class="section dark" id="countdown" aria-labelledby="countdown-title">
+        <p class="eyebrow eyebrow--light">До церемонии</p>
+        <h2 class="reveal" id="countdown-title">В ожидании особенного дня</h2>
+        <p class="lead lead--center lead--light reveal">С каждым днём всё ближе момент, когда мы скажем друг другу самое важное «Да»</p>
+        <div class="countdown reveal" id="countdown-grid" aria-live="polite">
+          <article class="count">
+            <strong id="cd-days">—</strong>
+            <span id="cd-days-label">дней</span>
+          </article>
+          <article class="count">
+            <strong id="cd-hours">—</strong>
+            <span id="cd-hours-label">часов</span>
+          </article>
+          <article class="count">
+            <strong id="cd-minutes">—</strong>
+            <span id="cd-minutes-label">минут</span>
+          </article>
+          <article class="count">
+            <strong id="cd-seconds">—</strong>
+            <span id="cd-seconds-label">секунд</span>
+          </article>
+        </div>
+        <p class="countdown__note reveal" id="countdown-note" hidden>Этот день уже наступил. Мы рады, что вы с нами.</p>
+      </section>
 
-    <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
+      <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
 
-    <!-- 5. История -->
-    <section class="section" id="story" aria-labelledby="story-title">
-      <p class="eyebrow reveal">О нас</p>
-      <h2 class="reveal" id="story-title">Коротко о том, как всё сложилось</h2>
+      <!-- Место -->
+      <section class="section paper" id="place" aria-labelledby="place-title">
+        <p class="eyebrow">Место, где случится наша история</p>
+        <h2 class="script-title" id="place-title">Место проведения</h2>
+        <p class="place__name">Банкетный зал «Каминный»</p>
+        <p class="place__address">город Челябинск,<br>улица Кирова, 139</p>
+        <p class="lead lead--center">Здесь мы соберём самых близких людей, чтобы вместе отпраздновать начало нашей семейной истории.</p>
+        <p class="place__map">
+          <a class="button" href="https://yandex.ru/maps/?text=%D0%A7%D0%B5%D0%BB%D1%8F%D0%B1%D0%B8%D0%BD%D1%81%D0%BA%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%9A%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%2C%20139" target="_blank" rel="noopener noreferrer">Открыть в Яндекс.Картах</a>
+        </p>
+        <div class="gallery">
+          <figure class="reveal"><img src="images/hall-1.jpg" alt="Сервировка стола в банкетном зале «Каминный»"></figure>
+          <figure class="reveal"><img src="images/hall-2.jpg" alt="Зал с кирпичными арками и прозрачными стульями"></figure>
+          <figure class="reveal"><img src="images/hall-3.jpg" alt="Арочное зеркало и шторы зала"></figure>
+        </div>
+      </section>
 
-      <article class="story">
-        <p class="lead reveal">Случайный разговор, который не захотелось заканчивать.</p>
-        <p class="prose reveal">Мы встретились в обычный будний вечер и остались в этом разговоре гораздо дольше, чем планировали. Так началась история, которую теперь хочется рассказать вслух.</p>
-      </article>
+      <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
 
-      <article class="story">
-        <p class="lead reveal">Дальше было тихо и очень ясно: рядом спокойнее.</p>
-        <p class="prose reveal">Общие дороги, долгие завтраки и решения, которые больше не хотелось принимать поодиночке. Без спешки, но с ощущением, что всё уже на своём месте.</p>
-      </article>
+      <!-- Программа -->
+      <section class="section dark" id="program" aria-labelledby="program-title">
+        <p class="eyebrow eyebrow--light">Wedding day</p>
+        <h2 class="reveal" id="program-title">Программа дня</h2>
+        <ol class="timeline">
+          <li class="reveal">
+            <time datetime="15:45">15:45</time>
+            <div>
+              <h3>Начало приезда гостей</h3>
+              <p>Будем рады, если вы начнёте подъезжать заранее.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <time datetime="16:00">16:00</time>
+            <div>
+              <h3>Сбор гостей и welcome</h3>
+              <p>Встреча, приветственные напитки и приятное общение.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <time datetime="17:00">17:00</time>
+            <div>
+              <h3>Свадебная церемония</h3>
+              <p>Самый трогательный момент нашего дня.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <time datetime="17:30">17:30</time>
+            <div>
+              <h3>Начало праздничного банкета</h3>
+              <p>Время поздравлений, улыбок и праздника.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <time datetime="19:00">19:00</time>
+            <div>
+              <h3>Танцы и развлечения</h3>
+              <p>Музыка, танцы и яркие моменты нашего вечера.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <time datetime="21:00">21:00</time>
+            <div>
+              <h3>Свадебный торт</h3>
+              <p>Сладкое завершение вечера.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <time datetime="22:30">22:30</time>
+            <div>
+              <h3>Завершение праздничной программы</h3>
+              <p>Финальные моменты торжества.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <time datetime="23:00">23:00</time>
+            <div>
+              <h3>Завершение нашего вечера</h3>
+              <p>Пусть этот вечер останется в памяти тёплым воспоминанием.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
 
-      <article class="story">
-        <p class="lead reveal">Теперь мы зовём в этот день тех, с кем тепло.</p>
-        <p class="prose reveal">Нам важно, чтобы рядом были вы. Приходите разделить ужин, музыку и несколько часов, которые мы запомним вместе.</p>
-      </article>
-    </section>
+      <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
 
-    <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
+      <!-- Дресс-код -->
+      <section class="section paper" id="dress" aria-labelledby="dress-title">
+        <h2 class="script-title" id="dress-title">Dress-code</h2>
+        <p class="eyebrow">Палитра нашего дня</p>
+        <p class="lead lead--center">Нам будет особенно приятно, если вы поддержите атмосферу нашего праздника и выберете наряды в оттенках нашей свадебной палитры.</p>
 
-    <!-- 6. Ответ на приглашение -->
-    <section class="section wash" id="rsvp" aria-labelledby="rsvp-title">
-      <p class="eyebrow reveal">Ответ</p>
-      <h2 class="reveal" id="rsvp-title">Будете с нами?</h2>
-      <p class="lead lead--center reveal">Напишите, пожалуйста, как вас встречать. Это займёт минуту.</p>
+        <div class="looks">
+          <figure class="look reveal">
+            <svg viewBox="0 0 160 240" aria-hidden="true">
+              <path fill="#6d7348" d="M80 28c8 0 14 8 14 16s-6 14-14 14-14-6-14-14 6-16 14-16z"/>
+              <path fill="#8a9360" d="M48 78c6-16 18-24 32-24s26 8 32 24l14 70c2 12-6 22-18 24l-8 48H60l-8-48c-12-2-20-12-18-24z"/>
+              <path fill="#f4efe4" d="M68 86h24l4 18H64z"/>
+            </svg>
+            <figcaption>Оливковое платье</figcaption>
+          </figure>
+          <figure class="look reveal">
+            <svg viewBox="0 0 160 240" aria-hidden="true">
+              <path fill="#c4a27a" d="M80 28c8 0 14 8 14 16s-6 14-14 14-14-6-14-14 6-16 14-16z"/>
+              <path fill="#d8c4a4" d="M46 82c8-18 20-26 34-26s26 8 34 26c10 28 16 58 16 78 0 10-8 16-16 16h-8l-2 36H56l-2-36h-8c-8 0-16-6-16-16 0-20 6-50 16-78z"/>
+              <path fill="#f7f1e8" d="M70 88c4 10 16 10 20 0 2 14-4 24-10 24s-12-10-10-24z"/>
+            </svg>
+            <figcaption>Платье в оттенке капучино</figcaption>
+          </figure>
+          <figure class="look reveal">
+            <svg viewBox="0 0 160 240" aria-hidden="true">
+              <path fill="#4a3428" d="M80 26c9 0 15 8 15 16s-6 14-15 14-15-6-15-14 6-16 15-16z"/>
+              <path fill="#5c4030" d="M46 78l14-8 20 10 20-10 14 8v78H46z"/>
+              <path fill="#f6f0e6" d="M72 84h16l6 34H66z"/>
+              <path fill="#3d291c" d="M58 154h18v58H58zm26 0h18v58H84z"/>
+            </svg>
+            <figcaption>Шоколадный костюм</figcaption>
+          </figure>
+          <figure class="look reveal">
+            <svg viewBox="0 0 160 240" aria-hidden="true">
+              <path fill="#8c6244" d="M80 26c9 0 15 8 15 16s-6 14-15 14-15-6-15-14 6-16 15-16z"/>
+              <path fill="#a67c52" d="M46 78l14-8 20 10 20-10 14 8v78H46z"/>
+              <path fill="#f3e6d4" d="M72 84h16l6 34H66z"/>
+              <path fill="#6b4632" d="M58 154h18v58H58zm26 0h18v58H84z"/>
+            </svg>
+            <figcaption>Костюм в оттенке мокко</figcaption>
+          </figure>
+        </div>
 
-      <form class="rsvp reveal" id="rsvp-form" novalidate>
-        <label class="field">
-          <span>Имя</span>
-          <input type="text" name="name" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
-        </label>
-        <label class="field">
-          <span>Количество гостей</span>
-          <input type="number" name="guests" min="1" max="8" value="1" required inputmode="numeric">
-        </label>
-        <label class="field">
-          <span>Комментарий</span>
-          <textarea name="note" rows="3" maxlength="400" placeholder="Пожелания, аллергии или кто придёт с вами"></textarea>
-        </label>
-        <p class="form-error" id="form-error" hidden></p>
-        <button class="button" type="submit">Подтвердить присутствие</button>
-      </form>
+        <ul class="palette">
+          <li class="reveal"><span class="swatch" style="--cloth:#6d7348"></span>Оливковый</li>
+          <li class="reveal"><span class="swatch" style="--cloth:#9aa584"></span>Шалфей</li>
+          <li class="reveal"><span class="swatch" style="--cloth:#8c6244"></span>Мокко</li>
+          <li class="reveal"><span class="swatch" style="--cloth:#4a2e24"></span>Шоколадный</li>
+          <li class="reveal"><span class="swatch" style="--cloth:#c4a27a"></span>Капучино</li>
+          <li class="reveal"><span class="swatch" style="--cloth:#e3d39a"></span>Лимонный</li>
+          <li class="reveal"><span class="swatch" style="--cloth:#e4d3b4"></span>Шампань</li>
+          <li class="reveal"><span class="swatch" style="--cloth:#f3e6d0"></span>Сливочный</li>
+          <li class="reveal"><span class="swatch" style="--cloth:#f7f3ec"></span>Молочный</li>
+        </ul>
+      </section>
 
-      <div class="thanks" id="thanks" hidden tabindex="-1">
-        <p class="lead lead--center">Спасибо. Мы будем рады видеть вас.</p>
-        <p class="prose prose--center" id="thanks-text"></p>
-      </div>
-    </section>
+      <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
 
-    <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
+      <!-- Музыка и сюрпризы -->
+      <section class="section dark" id="music" aria-labelledby="music-title">
+        <h2 class="reveal" id="music-title">Музыка и сюрпризы</h2>
+        <p class="lead lead--center lead--light reveal">Хотите сделать наш праздник ещё ярче? Будем рады вашим музыкальным пожеланиям, неожиданным поздравлениям, песням, танцам и приятным сюрпризам!</p>
+        <p class="prose prose--center prose--light reveal">Если вы хотите подготовить что-то особенное или согласовать выступление, свяжитесь, пожалуйста, с нашим ведущим.</p>
+        <p class="host reveal">Артём Юнусов</p>
+        <!-- Замените href на личную ссылку ведущего, когда она будет известна -->
+        <p class="reveal"><a class="button button--line" href="https://t.me/" target="_blank" rel="noopener noreferrer">Telegram</a></p>
+      </section>
 
-    <!-- 7. Финал -->
-    <footer class="section finale" id="finale">
-      <p class="eyebrow reveal">До встречи</p>
-      <h2 class="reveal">Ждём вас</h2>
-      <p class="lead lead--center reveal">Пусть этот день будет тихим, тёплым и по-настоящему нашим общим.</p>
-      <p class="prose prose--center reveal">Если планы изменятся или появятся вопросы — напишите. Мы ответим лично.</p>
-      <address class="contacts reveal">
-        <a href="tel:+70000000000">+7 (000) 000-00-00</a>
-        <a href="mailto:hello@example.com">hello@example.com</a>
-      </address>
-      <p class="finale__sign reveal">Матвей <span>&amp;</span> Дарья</p>
-      <a class="to-top" href="#top">К началу ленты</a>
-    </footer>
+      <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
+
+      <!-- Анкета -->
+      <section class="section paper" id="rsvp" aria-labelledby="rsvp-title">
+        <h2 class="script-title" id="rsvp-title">Подтверждение присутствия</h2>
+        <p class="lead lead--center">Дорогие гости!</p>
+        <p class="prose prose--center">Пожалуйста, ответьте на несколько вопросов.</p>
+
+        <form class="rsvp reveal" id="rsvp-form" novalidate>
+          <label class="field">
+            <span>Имя и фамилия</span>
+            <input type="text" name="name" autocomplete="name" required maxlength="80" placeholder="Иван Иванов">
+          </label>
+          <fieldset class="choice">
+            <legend>Присутствие</legend>
+            <label><input type="radio" name="attend" value="yes" required> Да, буду</label>
+            <label><input type="radio" name="attend" value="no"> К сожалению, не смогу</label>
+          </fieldset>
+          <fieldset class="choice">
+            <legend>Будете ли вы с парой?</legend>
+            <label><input type="radio" name="pair" value="no" required> Нет</label>
+            <label><input type="radio" name="pair" value="yes"> Да</label>
+          </fieldset>
+          <label class="field" id="companion-field" hidden>
+            <span>Имя сопровождающего</span>
+            <input type="text" name="companion" maxlength="80" placeholder="Имя и фамилия">
+          </label>
+          <p class="form-error" id="form-error" hidden></p>
+          <button class="button" type="submit">Отправить ответ</button>
+        </form>
+
+        <div class="thanks" id="thanks" hidden tabindex="-1">
+          <p class="lead lead--center">Спасибо за ваш ответ! Будем рады разделить этот день с вами.</p>
+        </div>
+      </section>
+
+      <footer class="finale">
+        <p class="finale__sign">Матвей <span>&amp;</span> Дарья</p>
+        <a class="to-top" href="#top">К началу письма</a>
+      </footer>
+    </div>
   </div>
 
   <script src="script.js"></script>
